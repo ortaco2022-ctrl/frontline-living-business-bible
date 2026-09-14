@@ -1,0 +1,107 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>P1 Frontline Marketing OS</title><style>:root{--b:#0a0d11;--p:#111720;--p2:#18212c;--t:#f4f7fb;--m:#99a7b8;--a:#e8b94d;--l:#293544;--g:#42d392}*{box-sizing:border-box}body{margin:0;background:linear-gradient(#080b0f,#101720);color:var(--t);font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif}button,input,select,textarea{font:inherit}.app{display:grid;grid-template-columns:270px 1fr;min-height:100vh}aside{position:sticky;top:0;height:100vh;background:#090d12;border-right:1px solid var(--l);padding:24px}.brand{display:flex;gap:12px;align-items:center;margin-bottom:24px}.logo{width:44px;height:44px;border-radius:12px;background:var(--a);color:#111;display:grid;place-items:center;font-weight:900}.brand b{display:block}.brand small,.muted,.tiny{color:var(--m)}nav button{width:100%;border:0;background:transparent;color:#ccd6e1;text-align:left;padding:11px 12px;border-radius:9px;margin:3px 0;cursor:pointer}nav button:hover,nav button.on{background:var(--p2);color:white}.prog{margin-top:20px;padding:14px;background:var(--p);border:1px solid var(--l);border-radius:14px}.bar{height:9px;background:#202a36;border-radius:99px;overflow:hidden;margin:8px 0}.fill{height:100%;background:var(--a);width:0}.pct{font-size:25px;font-weight:900}main{padding:32px;max-width:1450px;width:100%}.page{display:none}.page.on{display:block}.hero{display:flex;justify-content:space-between;gap:20px;align-items:flex-start}.hero h1{margin:0 0 8px;font-size:34px}.hero p{color:var(--m);max-width:850px;line-height:1.55}.btn{border:1px solid var(--l);background:var(--p2);color:white;border-radius:9px;padding:10px 13px;cursor:pointer}.btn.primary{background:var(--a);border-color:var(--a);color:#16110a;font-weight:800}.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:14px;margin-top:18px}.card{grid-column:span 12;background:linear-gradient(#111821,#0e141b);border:1px solid var(--l);border-radius:15px;padding:18px}.half{grid-column:span 6}.third{grid-column:span 4}h2{font-size:25px}h3{margin:0 0 8px}.kpi{font-size:27px;font-weight:900}.pill{display:inline-block;border:1px solid var(--l);border-radius:99px;padding:5px 9px;margin:3px;font-size:12px}.step{padding:15px 0;border-top:1px solid var(--l)}.step:first-child{border-top:0}.row{display:flex;gap:12px;align-items:flex-start}.row input{margin-top:5px;transform:scale(1.15)}details{margin-top:9px;border:1px solid var(--l);border-radius:10px;background:#0a1016}summary{padding:11px 13px;font-weight:700;cursor:pointer}.inside{padding:0 13px 13px}.prompt{position:relative;background:#070a0e;border:1px solid #2d3947;border-radius:11px;padding:15px;margin:10px 0}.prompt pre{white-space:pre-wrap;margin:0;padding-right:76px;font:12.5px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;color:#dce7f3}.copy{position:absolute;right:9px;top:9px;background:#17212c;border:1px solid var(--l);color:white;border-radius:7px;padding:6px 8px;cursor:pointer}.call{border-left:4px solid var(--a);background:#141b24;padding:12px 14px;border-radius:9px;margin:12px 0}table{width:100%;border-collapse:collapse}th,td{padding:10px;border-bottom:1px solid var(--l);text-align:left;vertical-align:top}th{font-size:11px;text-transform:uppercase;color:#dce4ec}td{font-size:13px;color:#c9d3de}.status,.field,.note{width:100%;background:#0a1016;color:white;border:1px solid var(--l);border-radius:8px;padding:8px}.note{min-height:100px}.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}.done{opacity:.55}.done td:nth-child(2){text-decoration:line-through}footer{text-align:center;color:#697789;font-size:12px;margin:28px 0}@media(max-width:900px){.app{grid-template-columns:1fr}aside{position:relative;height:auto;border-right:0;border-bottom:1px solid var(--l)}nav{display:flex;overflow:auto}nav button{min-width:max-content}.half,.third{grid-column:span 12}.hero{display:block}}@media(max-width:600px){main{padding:18px}.two{grid-template-columns:1fr}.hero h1{font-size:27px}table{display:block;overflow:auto}}</style></head><body><div class="app"><aside><div class="brand"><div class="logo">P1</div><div><b>Frontline Marketing OS</b><small>Interactive Campaign Builder</small></div></div><nav><button class="on" data-p="dash">Dashboard</button><button data-p="setup">1. Free Tool Setup</button><button data-p="canva">2. Canva Kit</button><button data-p="flow">3. Weekly Workflow</button><button data-p="prompts">4. Prompt Library</button><button data-p="campaign">5. 30-Day Campaign</button><button data-p="metrics">6. Metrics</button></nav><div class="prog"><div class="tiny">Overall completion</div><div id="pct" class="pct">0%</div><div class="bar"><div id="fill" class="fill"></div></div><div id="ptxt" class="tiny"></div></div></aside><main><section id="dash" class="page on"><div class="hero"><div><h1>P1 Frontline Marketing Operating System</h1><p>Install the free marketing stack, create repeatable content, publish one week at a time, and run the full Frontline 30-day campaign from one control panel.</p></div><div><button class="btn primary" onclick="go('setup')">Start Setup</button> <button class="btn" onclick="exportData()">Export Progress</button></div></div><div class="grid"><div class="card third"><div class="tiny">PRIMARY KPI</div><div class="kpi">Quote Requests</div><p class="muted">Followers are secondary. Track real inquiries and qualified projects.</p></div><div class="card third"><div class="tiny">CONTENT PILLARS</div><div class="kpi">6</div><p class="muted">Transformation · Craftsmanship · Education · Trust · Services · Conversion</p></div><div class="card third"><div class="tiny">PUBLISHING RHYTHM</div><div class="kpi">7 Days</div><p class="muted">Plan weekly so content adapts to actual results.</p></div><div class="card half"><h3>Free-First Stack</h3><span class="pill">Composio</span><span class="pill">Canva Free</span><span class="pill">Drive</span><span class="pill">Sheets</span><span class="pill">Buffer</span><span class="pill">Instagram</span><span class="pill">Facebook</span><span class="pill">TikTok</span><span class="pill">LinkedIn</span><span class="pill">SerpAPI</span><span class="pill">Brandfetch</span><div class="call"><b>Doctrine:</b> free tool first. Add paid capability only when a real revenue or time-saving gap is proven.</div></div><div class="card half"><h3>Frontline Positioning</h3><p class="muted">South Florida remodeling and carpentry: kitchens, cabinetry, closets/storage, flooring, doors/trim, built-ins, outdoor woodworking and commercial carpentry.</p><b>Primary CTA: <span style="color:var(--a)">Request a Quote</span></b></div></div></section><section id="setup" class="page"><h2>1. Install & Establish the Free Stack</h2><div class="card" id="setupList"></div></section><section id="canva" class="page"><h2>2. Canva Production Kit</h2><div class="grid"><div class="card half"><h3>7 Master Templates</h3><div id="canvaTemplates"></div></div><div class="card half"><h3>3 Video Covers</h3><div id="videoCovers"></div><div class="call"><b>Sizes:</b><br>Feed/Carousel 1080×1350<br>Story/Reel/TikTok 1080×1920<br>LinkedIn 1200×1200 or landscape</div></div><div class="card"><h3>Canva Prompt</h3><div class="prompt"><pre>Create a premium social media design for P1 Frontline Carpentry & Design.
+
+POSITIONING
+South Florida remodeling and custom carpentry specializing in kitchens, cabinetry, closets/storage, flooring, doors/trim, custom built-ins, outdoor woodworking and commercial carpentry.
+
+DESIGN RULES
+- Real project photography is the hero.
+- Premium, clean, modern contractor aesthetic.
+- Do not hide craftsmanship with excess text.
+- Mobile-first hierarchy.
+- Use the established Frontline logo, colors and typography.
+- Avoid fake badges, stock-contractor clichés and unsupported claims.
+- CTA when appropriate: Request a Quote.
+
+FORMAT: [INSERT]
+HEADLINE: [INSERT]
+SUPPORT COPY: [INSERT]
+SOURCE ASSET: [INSERT]
+PLATFORM: [INSERT]</pre><button class="copy">Copy</button></div></div></div></section><section id="flow" class="page"><h2>3. Weekly Content Workflow</h2><div class="card" id="flowList"></div></section><section id="prompts" class="page"><h2>4. Prompt Library</h2><div class="grid" id="promptGrid"></div></section><section id="campaign" class="page"><h2>5. 30-Day Campaign — Built Around Your Vision</h2><div class="call"><b>Campaign:</b> September 14 – October 13, 2026 · <b>Goal:</b> qualified quote requests · <b>CTA:</b> Request a Quote</div><div class="card"><table><thead><tr><th>Date</th><th>Content</th><th>Goal</th><th>Status</th></tr></thead><tbody id="campRows"></tbody></table></div></section><section id="metrics" class="page"><h2>6. Tracking & Optimization</h2><div class="grid"><div class="card half"><h3>Weekly KPI Entry</h3><div class="two" id="kpis"></div></div><div class="card half"><h3>Optimization Notes</h3><textarea id="notes" class="note" placeholder="Record winners, weak spots, customer questions and next tests..."></textarea><div class="call"><b>Priority:</b> quote requests > DMs > website actions > saves/shares > reach > followers.</div></div><div class="card"><h3>Analytics Prompt</h3><div class="prompt"><pre>Analyze this week's P1 Frontline marketing performance.
+
+DATA:
+[PASTE METRICS]
+
+PRIMARY KPI: Qualified quote requests.
+
+Evaluate best content by reach, saves/shares, watch time, website/profile action and actual lead generation. Identify the weakest content, strongest hook, strongest service/topic and strongest format.
+
+Return:
+1. what to repeat
+2. what to stop
+3. what to test
+4. 3 ideas derived from winners
+5. next week's content mix
+6. any funnel problem between views and quote requests</pre><button class="copy">Copy</button></div></div></div></section><footer>P1 Frontline Marketing OS · Progress is saved locally in this browser.</footer></main></div><script>const setup=[['Composio Free','Use Composio as the integration/action layer. Keep the build free-first.'],['Canva Free','Upload Frontline logo, colors, fonts and strongest project photos.'],['Google Drive','Create P1 FRONTLINE MARKETING with: 01 BRAND · 02 RAW PROJECT PHOTOS · 03 BEFORE AFTER · 04 VIDEO RAW · 05 CANVA EXPORTS · 06 APPROVED CONTENT · 07 POSTED · 08 TESTIMONIALS · 09 CAMPAIGNS · 10 MONTHLY REPORTS'],['Google Sheets Command Board','Create tabs: Content Calendar · Content Ideas · Project Assets · Leads · Posted Content · Performance · Testimonials · Campaigns.'],['Buffer Free','Connect Instagram, Facebook and TikTok. Schedule one week at a time.'],['LinkedIn Direct','Connect LinkedIn directly through Composio for B2B/commercial content.'],['Social Account Readiness','Confirm Facebook Page, Instagram Professional, TikTok business/creator and LinkedIn permissions.'],['Composio Toolkits','Connect canva_mcp, buffer, facebook, instagram, tiktok, linkedin, googledrive, googlesheets, serpapi, brandfetch.'],['Dry Run','Test: project photo → Drive → AI caption → Canva → approval → Buffer/direct social → published URL → Sheet.']];const flow=['Collect source material: before, progress, final, short vertical video, verified review, city, scope, problem and solution.','Research weekly homeowner questions and South Florida remodeling topics that match real assets.','Generate the next 7-day content plan.','Produce graphics/video using master templates whenever possible.','Approval gate: fact · visual · brand · CTA · mobile · platform checks.','Schedule only the next 7 days.','Engage daily: comments, DMs, inquiries and local conversations.','Sunday optimization: review views, saves, shares, site actions, DMs and quote requests.'];const templates=['Before / After','Project Spotlight','5-Tip Carousel','Service Spotlight','Client Review','Quick Fact / Educational','Request-a-Quote CTA'];const covers=['Transformation','Behind the Build','Frontline Tip'];const prompts=[['Weekly Campaign Generator',`Create P1 Frontline Carpentry & Design's next seven days of marketing.
+
+PRIMARY OBJECTIVE
+Generate qualified South Florida remodeling and custom-carpentry quote requests.
+
+TARGET MARKET
+Homeowners, property owners, investors, designers, realtors, contractors and commercial decision-makers throughout Miami-Dade, Broward, Palm Beach and the Florida Keys.
+
+SERVICES
+Kitchens/cabinetry, closets/storage, flooring, doors/trim, custom built-ins, outdoor woodworking, residential remodeling and commercial carpentry.
+
+RULES
+- Use authentic Frontline project assets.
+- Never fabricate customers, projects, testimonials, prices, timelines or claims.
+- Mix transformation, craftsmanship, education, service awareness, trust and conversion.
+- Avoid generic contractor copy.
+- CTA: Request a Quote.
+
+FOR EACH ITEM GIVE
+platform, format, objective, hook, visual instructions, on-screen text, caption, CTA, hashtags, required assets, Canva template, best day/time and funnel role.
+
+Finish with publishing table, asset checklist, approval checklist and anything requiring verification.`],['Project-to-Content',`Turn this real P1 Frontline project into a complete content package.
+
+PROJECT:
+[PASTE VERIFIED DETAILS]
+
+AVAILABLE ASSETS:
+[LIST PHOTOS / VIDEOS / REVIEW]
+
+Create 3 hooks, 1 before/after post, 1 Reel/TikTok, 1 Story sequence, 1 educational angle, 1 conversion angle, captions, CTA, hashtags, Canva template and exact on-screen text.
+
+Do not invent facts. Flag missing verification.`],['Reel / TikTok',`Create a 20–30 second vertical Reel/TikTok for P1 Frontline.
+
+PROJECT/TOPIC: [INSERT]
+AVAILABLE CLIPS: [INSERT]
+
+Structure:
+0–2 sec visual hook
+2–6 sec problem/before
+6–14 sec process/craftsmanship
+14–22 sec reveal/result
+22–30 sec CTA
+
+Return exact clip order, duration, on-screen text, optional voiceover, caption, CTA, cover headline and music/style direction. Keep it premium and authentic.`],['Carousel',`Create a 6-slide educational carousel for P1 Frontline.
+
+TOPIC: [INSERT]
+AUDIENCE: South Florida homeowners considering remodeling/carpentry.
+
+Slide 1: high-value hook
+Slides 2–5: practical advice
+Slide 6: Request a Quote CTA
+
+Use concise mobile-first copy. No fake statistics or unsupported claims. Provide exact slide text and visual direction.`],['Testimonial',`Create a testimonial/social-proof post for P1 Frontline.
+
+VERIFIED REVIEW:
+[PASTE EXACT REVIEW]
+
+PROJECT:
+[VERIFIED DETAILS]
+
+Create graphic headline, caption, Story version, optional Reel voiceover and CTA. Do not alter the meaning of the customer review or add unsupported claims.`],['Daily Campaign Executor',`You are operating the P1 Frontline 30-Day “Built Around Your Vision” campaign.
+
+For today's scheduled content:
+1. identify required real assets
+2. identify anything requiring verification
+3. write final platform-specific caption
+4. write on-screen text
+5. give Canva production instructions
+6. give Reel/TikTok edit instructions if video
+7. provide CTA and hashtags
+8. provide publishing checklist
+9. provide the exact Content Calendar row to add/update
+
+Never fabricate project details, reviews, locations, prices, results or timelines. If an asset is missing, propose a compliant substitute content type.`]];const campaign=[['9/14','Launch Reel: transformation montage. Hook: South Florida spaces, built differently.','Awareness + proof'],['9/15','Stories: Before → Process → Finished + poll.','Engagement'],['9/16','Before/After: strongest kitchen transformation.','Proof'],['9/17','Story: 3 things to decide before remodeling your kitchen.','Education'],['9/18','Craftsmanship Reel: cabinet/trim/detail close-ups.','Authority'],['9/19','Service Carousel: Kitchens + Cabinetry.','Service awareness'],['9/20','Engagement + analytics; repost best project.','Optimization'],['9/21','Carousel: 5 Kitchen Remodel Mistakes to Avoid.','Education'],['9/22','Story Q&A: Ask Frontline a remodeling question.','Engagement'],['9/23','Project Reel: start → construction → reveal.','Proof'],['9/24','Service Spotlight: Custom closets/storage.','Service awareness'],['9/25','Frontline Tip Video: custom vs off-the-shelf cabinetry.','Authority'],['9/26','Before/After: built-in or feature wall.','Proof'],['9/27','Weekly performance review; create follow-up from winner.','Optimization'],['9/28','Behind the Build Reel: real project work.','Trust'],['9/29','Story: what happens between BEFORE and AFTER.','Trust'],['9/30','Verified client review + finished project photo.','Social proof'],['10/1','Carousel: What to ask your contractor before a remodel.','Education'],['10/2','Detail Reel: hardware, alignment, finishes, trim, fit.','Craftsmanship'],['10/3','South Florida service-area post.','Local awareness'],['10/4','Review DMs/leads; answer common questions in Stories.','Optimization'],['10/5','Transformation Reel with direct CTA.','Conversion'],['10/6','Story Poll: What would you remodel first?','Engagement'],['10/7','Carousel: Thinking About Remodeling? Start Here.','Education + conversion'],['10/8','Commercial Carpentry spotlight on LinkedIn + Facebook.','B2B'],['10/9','FAQ Reel: answer one real homeowner question.','Authority'],['10/10','Portfolio Carousel: 5–8 finished projects.','Portfolio proof'],['10/11','Identify top 3 posts and strongest lead source.','Optimization'],['10/12','Authority Reel: best work of month. Your space. Your vision. Built by Frontline.','Brand + proof'],['10/13','Direct CTA post: Planning your next project? Request a Quote.','Conversion']];const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];function get(k,d=null){try{let v=localStorage.getItem(k);return v==null?d:JSON.parse(v)}catch{return d}}function set(k,v){localStorage.setItem(k,JSON.stringify(v))}function go(id){$$('.page').forEach(x=>x.classList.remove('on'));$$('nav button').forEach(x=>x.classList.remove('on'));$('#'+id).classList.add('on');$(`nav button[data-p="${id}"]`)?.classList.add('on');scrollTo(0,0)}$$('nav button').forEach(b=>b.onclick=()=>go(b.dataset.p));function task(id,label,desc){return `<div class="step"><div class="row"><input class="task" id="${id}" type="checkbox"><div><h3>${label}</h3><div class="muted">${desc}</div></div></div></div>`}$('#setupList').innerHTML=setup.map((x,i)=>task('s'+i,x[0],x[1])).join('');$('#flowList').innerHTML=flow.map((x,i)=>task('w'+i,'Step '+(i+1),x)).join('');$('#canvaTemplates').innerHTML=templates.map((x,i)=>`<label><input class="task" id="c${i}" type="checkbox"> ${x}</label><br><br>`).join('');$('#videoCovers').innerHTML=covers.map((x,i)=>`<label><input class="task" id="v${i}" type="checkbox"> ${x}</label><br><br>`).join('');$('#promptGrid').innerHTML=prompts.map((x,i)=>`<div class="card ${i>0?'half':''}"><h3>${x[0]}</h3><div class="prompt"><pre>${x[1]}</pre><button class="copy">Copy</button></div></div>`).join('');function wireTasks(){$$('.task').forEach(t=>{t.checked=get('task_'+t.id,false);t.onchange=()=>{set('task_'+t.id,t.checked);progress()}});progress()}function progress(){let t=$$('.task'),d=t.filter(x=>x.checked).length,p=t.length?Math.round(d/t.length*100):0;$('#pct').textContent=p+'%';$('#fill').style.width=p+'%';$('#ptxt').textContent=`${d} of ${t.length} tracked tasks complete`}function wireCopy(){$$('.copy').forEach(b=>b.onclick=async()=>{let txt=b.parentElement.querySelector('pre').innerText;try{await navigator.clipboard.writeText(txt)}catch{let a=document.createElement('textarea');a.value=txt;document.body.appendChild(a);a.select();document.execCommand('copy');a.remove()}let o=b.textContent;b.textContent='Copied!';setTimeout(()=>b.textContent=o,1000)})}$('#campRows').innerHTML=campaign.map((r,i)=>`<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td><select class="status" data-k="camp_${i}"><option>Not Started</option><option>Asset Needed</option><option>Drafting</option><option>In Canva</option><option>Approval</option><option>Scheduled</option><option>Published</option><option>Skipped</option></select></td></tr>`).join('');$$('.status').forEach(s=>{s.value=get(s.dataset.k,'Not Started');s.closest('tr').classList.toggle('done',s.value==='Published');s.onchange=()=>{set(s.dataset.k,s.value);s.closest('tr').classList.toggle('done',s.value==='Published')}});const kp=['Reach','Views','Saves','Shares','Profile Visits','Website Clicks','DM Inquiries','Quote Requests'];$('#kpis').innerHTML=kp.map(x=>`<label><span class="tiny">${x}</span><input class="field metric" data-k="m_${x.replaceAll(' ','_')}" type="number"></label>`).join('');$$('.metric').forEach(m=>{m.value=get(m.dataset.k,'');m.oninput=()=>set(m.dataset.k,m.value)});$('#notes').value=get('notes','');$('#notes').oninput=()=>set('notes',$('#notes').value);function exportData(){let o={exportedAt:new Date().toISOString(),tasks:{},campaign:{},metrics:{},notes:$('#notes').value};$$('.task').forEach(x=>o.tasks[x.id]=x.checked);$$('.status').forEach(x=>o.campaign[x.dataset.k]=x.value);$$('.metric').forEach(x=>o.metrics[x.dataset.k]=x.value);let b=new Blob([JSON.stringify(o,null,2)],{type:'application/json'}),u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download='P1_Frontline_Marketing_Progress.json';a.click();URL.revokeObjectURL(u)}wireTasks();wireCopy();</script></body></html>
