@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "defaultMode": "acceptEdits",
+    "allow": [
+      "Read", "Edit", "Write", "Glob", "Grep",
+      "Bash(git status:*)", "Bash(git diff:*)", "Bash(git log:*)", "Bash(git show:*)",
+      "Bash(git branch:*)", "Bash(git rev-parse:*)", "Bash(git fetch:*)",
+      "Bash(git add:*)", "Bash(git commit:*)",
+      "Bash(python:*)", "Bash(python3:*)", "Bash(pytest:*)",
+      "Bash(node:*)", "Bash(npm:*)", "Bash(npx:*)",
+      "Bash(pnpm:*)", "Bash(yarn:*)",
+      "Bash(ruff:*)", "Bash(eslint:*)", "Bash(prettier:*)",
+      "Bash(tsc:*)", "Bash(vitest:*)"
+    ]
+  }
+}
