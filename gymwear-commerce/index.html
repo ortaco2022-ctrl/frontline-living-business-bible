@@ -1,0 +1,508 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Gymwear PRD Explorer</title>
+<style>
+:root{--bg:#f4f7fa;--panel:#ffffff;--panel2:#eef3f8;--text:#14243a;--muted:#5b6b80;--line:#d8e1ea;--accent:#1f5f8b;--accent-ink:#ffffff;--navy:#16304f;
+--s-ns:#8a97a8;--s-ip:#c58a12;--s-im:#2f6fb5;--s-fv:#1f8a5b;--s-oa:#0f6b45;--s-bl:#c0392b}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0b1119;--panel:#121a25;--panel2:#18222f;--text:#e8eef5;--muted:#9aa9ba;--line:#273444;--accent:#5fa8dc;--accent-ink:#06121d;--navy:#0e1824;
+--s-ns:#7d8a9b;--s-ip:#e0a63a;--s-im:#5c9be0;--s-fv:#3cc489;--s-oa:#2fae76;--s-bl:#e5604f}}
+:root[data-theme="dark"]{--bg:#0b1119;--panel:#121a25;--panel2:#18222f;--text:#e8eef5;--muted:#9aa9ba;--line:#273444;--accent:#5fa8dc;--accent-ink:#06121d;--navy:#0e1824;
+--s-ns:#7d8a9b;--s-ip:#e0a63a;--s-im:#5c9be0;--s-fv:#3cc489;--s-oa:#2fae76;--s-bl:#e5604f}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.55 Inter,system-ui,-apple-system,"Segoe UI",sans-serif}
+button,input,select,textarea{font:inherit;color:inherit}
+a{color:var(--accent)}
+.app{display:grid;grid-template-columns:268px 1fr;min-height:100vh}
+aside{position:sticky;top:0;height:100vh;overflow:auto;background:var(--navy);color:#dfe8f2;padding:22px 18px}
+.brand b{display:block;font-size:17px;letter-spacing:.02em}
+.brand small{color:#9fb2c7}
+nav{margin-top:18px}
+nav button{display:block;width:100%;min-height:40px;border:0;background:transparent;color:#cfdbe8;text-align:left;padding:9px 12px;border-radius:8px;cursor:pointer}
+nav button:hover,nav button[aria-current="page"]{background:rgba(255,255,255,.1);color:#fff}
+.side-prog{margin-top:18px;padding:14px;border:1px solid rgba(255,255,255,.14);border-radius:12px}
+.side-prog .lbl{font-size:12px;color:#9fb2c7;display:flex;justify-content:space-between}
+.bar{height:8px;background:rgba(127,140,160,.3);border-radius:99px;overflow:hidden;margin:6px 0 12px}
+.bar i{display:block;height:100%;background:#5fc59a;width:0}
+.theme{margin-top:14px;width:100%;min-height:40px;border:1px solid rgba(255,255,255,.2);background:transparent;color:#dfe8f2;border-radius:8px;cursor:pointer}
+main{padding:30px 34px 60px;max-width:1240px;width:100%}
+.page{display:none}.page.on{display:block}
+h1{font-size:30px;margin:0 0 6px;line-height:1.2}
+h2{font-size:21px;margin:28px 0 10px}
+h3{font-size:16px;margin:0 0 6px}
+.lede{color:var(--muted);max-width:820px}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:14px;margin-top:16px}
+.card{grid-column:span 12;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+.c4{grid-column:span 4}.c6{grid-column:span 6}.c3{grid-column:span 3}
+.kpi{font-size:28px;font-weight:800}
+.muted{color:var(--muted)}.tiny{font-size:12.5px}
+.pill{display:inline-block;border:1px solid var(--line);border-radius:99px;padding:2px 9px;font-size:12px;margin:2px 4px 2px 0;background:var(--panel2)}
+.pill.ret{border-color:#2f6fb5;color:var(--s-im)}.pill.v1{border-color:#8a4fbf;color:#8a4fbf}.pill.x{border-color:var(--muted)}
+.toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:14px 0}
+.toolbar input,.toolbar select{min-height:42px;border:1px solid var(--line);background:var(--panel);border-radius:8px;padding:8px 11px}
+.toolbar input{flex:1 1 220px}
+.btn{min-height:42px;border:1px solid var(--line);background:var(--panel);border-radius:8px;padding:8px 13px;cursor:pointer}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:700}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+h1[tabindex="-1"]:focus{outline:none}
+.req{background:var(--panel);border:1px solid var(--line);border-left:5px solid var(--s-ns);border-radius:10px;margin:10px 0}
+.req[data-s="ip"]{border-left-color:var(--s-ip)}.req[data-s="im"]{border-left-color:var(--s-im)}.req[data-s="fv"]{border-left-color:var(--s-fv)}.req[data-s="oa"]{border-left-color:var(--s-oa)}.req[data-s="bl"]{border-left-color:var(--s-bl)}
+.req summary{list-style:none;cursor:pointer;padding:13px 16px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.req summary::-webkit-details-marker{display:none}
+.req summary .id{font-weight:800;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;min-width:94px}
+.req summary .t{flex:1 1 220px;font-weight:600}
+.badge{font-size:12px;font-weight:700;padding:3px 9px;border-radius:99px;border:1px solid currentColor}
+.badge[data-s="ns"]{color:var(--s-ns)}.badge[data-s="ip"]{color:var(--s-ip)}.badge[data-s="im"]{color:var(--s-im)}.badge[data-s="fv"]{color:var(--s-fv)}.badge[data-s="oa"]{color:var(--s-oa)}.badge[data-s="bl"]{color:var(--s-bl)}
+.req .body{padding:0 16px 16px;border-top:1px solid var(--line)}
+.req ul{margin:10px 0;padding-left:20px}.req li{margin:4px 0}
+.ledger{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px;padding:12px;background:var(--panel2);border-radius:8px}
+.ledger label{display:block;font-size:12.5px;font-weight:700;color:var(--muted)}
+.ledger select,.ledger textarea,.ledger input{width:100%;margin-top:4px;border:1px solid var(--line);background:var(--panel);border-radius:6px;padding:8px;min-height:40px}
+.ledger textarea{min-height:64px;resize:vertical}
+.ledger .full{grid-column:1/-1}
+.blockedf{display:none}.ledger[data-s="bl"] .blockedf{display:block}
+.warn{color:var(--s-bl);font-size:12.5px;font-weight:600}
+table{width:100%;border-collapse:collapse;background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:hidden;font-size:14px}
+th{background:var(--navy);color:#fff;text-align:left;padding:10px 12px;font-size:13px}
+td{padding:10px 12px;border-top:1px solid var(--line);vertical-align:top}
+.tablewrap{overflow-x:auto}
+.flow{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:8px 0}
+.flow span{background:var(--panel2);border:1px solid var(--line);border-radius:6px;padding:4px 9px;font-size:13px}
+.flow b{color:var(--muted);font-weight:400}
+.check{display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-top:1px solid var(--line)}
+.check:first-of-type{border-top:0}
+.check input{width:20px;height:20px;margin-top:2px;flex:none}
+.gate{margin:12px 0}
+.gate h3{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.note{background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:10px 12px;font-size:13.5px}
+.empty{padding:24px;text-align:center;color:var(--muted)}
+.src li{margin:5px 0;word-break:break-word}
+.legend{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+@media (max-width:900px){
+ .app{grid-template-columns:1fr}
+ aside{position:static;height:auto;padding:14px 16px}
+ nav{display:flex;gap:4px;overflow-x:auto;margin-top:10px}
+ nav button{white-space:nowrap;width:auto}
+ .side-prog{display:none}
+ main{padding:20px 16px 50px}
+ .c4,.c6,.c3{grid-column:span 12}
+ .ledger{grid-template-columns:1fr}
+ h1{font-size:24px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside>
+ <div class="brand"><b>GYMWEAR COMMERCE</b><small>PRD v1.0 · 6 Oct 2026 · Explorer</small></div>
+ <nav id="nav" aria-label="Sections"></nav>
+ <div class="side-prog" aria-live="polite">
+  <div class="lbl"><span>Retail certification</span><span id="sp-ret">0%</span></div><div class="bar"><i id="sb-ret"></i></div>
+  <div class="lbl"><span>Full V1</span><span id="sp-v1">0%</span></div><div class="bar"><i id="sb-v1"></i></div>
+  <div class="lbl"><span>Blocked</span><span id="sp-bl">0</span></div>
+ </div>
+ <button class="theme" id="theme" type="button">Toggle light / dark</button>
+</aside>
+<main id="main"></main>
+</div>
+
+<script>
+/* ---------- PRD content (condensed from 01_PRODUCT_REQUIREMENTS v1.0) ---------- */
+const STATUSES=[['ns','Not started'],['ip','In progress'],['im','Implemented'],['fv','Functionally verified'],['oa','Owner accepted'],['bl','Blocked']];
+const DONE=new Set(['fv','oa']);
+// milestone: ret = required for retail certification, v1 = additionally required for full V1, x = cross-cutting (required by both)
+const REQS=[
+{id:'CAT-01',t:'Catalog and publication',sec:'7. Retail',m:'ret',g:[1,2],src:[],
+ s:'Every product and variant carries the commerce fields needed to sell it; publication goes through validation, not direct staff bypass.',
+ r:['Product: stable ID, handle, title, original/authorized media, category, description, care info, fulfillment type, tax/shipping classification, published state, related size-chart version.',
+ 'Variant: own SKU, size, color, price, inventory policy, and weight where shipping needs it. Accessories may use an approved one-size chart type.',
+ 'Draft / published / archived products; manual and rule-based collections; badges tied to real states; scheduled merchandising.',
+ 'Publish validation rejects missing commerce fields and unresolved rights/size-chart approvals. Archived products leave purchase flows but stay identifiable on historical orders.',
+ 'No empty categories copied from the reference menu. Audit/unpublish invalid drift. A direct variant-ID request must not make an unapproved product purchasable.']},
+{id:'CAT-02',t:'Search, filters, and sorting',sec:'7. Retail',m:'ret',g:[1,2],src:[],
+ s:'Variant-aware search and faceting with URL-persisted state.',
+ r:['Search titles, SKUs/style IDs, category names, approved attributes.','Facets: category, size family, size, color, price range, available-now, training/competition use, collection.',
+ 'AND across facets, OR within a facet. Red + size M must match a purchasable red/M variant, not red in one size and M in another.',
+ 'Sorts: relevance, price asc/desc, newest, merchant-featured. "Best selling" only with a documented real-order rule.',
+ 'Query, sort, page/cursor and facets live in the URL; selected chips, clear-all, result counts, useful no-results state.','Paginate without duplicates or gaps; never download the whole catalog to the browser.']},
+{id:'PDP-01',t:'Product details and variants',sec:'7. Retail',m:'ret',g:[1],src:[],
+ s:'Accurate, variant-driven product page with explicit size selection.',
+ r:['Original photos with zoom and meaningful alt text; title, style/SKU, price and currency, chosen options, accurate stock, size help, care, shipping/production context, return classification.',
+ 'Price ranges resolve to the selected variant price. Selection updates image, URL, price, availability and add-to-cart eligibility together.',
+ 'Explicit size selection required; never silently pick the smallest size. Disable impossible combinations and explain sold-out states.',
+ 'Add-to-cart sends the real variant ID and quantity. Related products link to real published items. Review counts and stars only from approved real records.']},
+{id:'FIT-01',t:'Size guidance',sec:'7. Retail',m:'ret',g:[1,2],src:['S2'],
+ s:'Each product family points at an approved, versioned size chart; suggestions are deterministic and never guaranteed.',
+ r:['Inches/centimeters from one canonical stored unit with consistent conversion; no double rounding.','Any size suggestion is deterministic, names its chart/version, explains ambiguous or missing inputs, and does not guarantee fit.',
+ 'V1 never saves body measurements to profiles or analytics; inputs are ephemeral to the sizing session.','Missing or unapproved charts block apparel publication. Never substitute GK sizing for another manufacturer.',
+ 'Order evidence keeps the chart version shown at purchase, stamped from trusted server/merchant records — not shopper-editable cart attributes.']},
+{id:'WISH-01',t:'Wishlist',sec:'7. Retail',m:'ret',g:[2],src:[],
+ s:'Device-local wishlist for guests, durable server wishlist for signed-in customers.',
+ r:['Guests save product/variant IDs on device; store no private customer data there.','Merge guest and account items on login without duplicates and without touching another customer\'s list.','Removed/unavailable items stay labeled; remove and move-to-cart work for available items.']},
+{id:'CART-01',t:'Cart persistence and correctness',sec:'7. Retail',m:'ret',g:[1],src:['S9'],
+ s:'The cart reflects real provider mutations, not local component state.',
+ r:['Persist across navigation and refresh with a protected session. Clear merge behavior when an account cart meets a guest cart; revalidate quantities and availability.',
+ 'Edits update provider-calculated costs, variants and discounts. A UI success must reflect a successful provider mutation.',
+ 'Explain that cart placement is not a stock reservation. Refresh price/availability before checkout; show what changed and require acceptance of current terms.',
+ 'Handle expired carts, deleted variants, API throttling, network loss and parallel-tab edits without silently losing the basket. Cart costs are estimates until checkout.']},
+{id:'PAY-01',t:'Hosted checkout and payment',sec:'7. Retail',m:'ret',g:[1],src:['S8','S9'],
+ s:'Shopify-hosted checkout via the real cart checkout URL; success requires verified provider state.',
+ r:['Guest checkout and authenticated buyer association. Show only payment methods actually enabled; no decorative wallet buttons.',
+ 'Address, shipping, discounts, tax and payment are validated by the platform. The app may display estimates but never determines the charged amount.',
+ 'A return URL, query parameter or locally generated receipt is not payment proof.',
+ 'Handle declines, auth challenges, abandonment, pending payment, duplicate taps, outages and delayed confirmation. Never double-create an order on retry.',
+ 'Never log card data, customer-account tokens, full cart secrets or payment credentials.']},
+{id:'INV-01',t:'Stock integrity',sec:'7. Retail',m:'ret',g:[1,4],src:['S16'],
+ s:'Shopify is the only stock ledger; last-unit contention must be proven.',
+ r:['Track stock per variant and location in Shopify. Disable "continue selling when out of stock" for ordinary stocked products.','Do not maintain a competing stock counter in the extension database.',
+ 'Release test: two buyers racing for the last unit — only the legitimately available quantity sells.','Ordinary carts never promise reservations. Quotes on stock-backed garments need a tested reservation or just-in-time policy with expiry/release; no custom line bypasses stock control.']},
+{id:'SHIP-01',t:'Delivery and tax presentation',sec:'7. Retail',m:'ret',g:[2],src:['S4'],
+ s:'Merchant-supplied shipping configuration; stocked and custom orders ship and pay separately.',
+ r:['Merchant supplies origin, regions, rates/carrier, parcel data, cutoffs, holidays, thresholds. Never copy GK thresholds or durations.','Show processing/production estimates separately from carrier transit. Reject unsupported destinations before payment with a useful explanation.',
+ 'Stocked purchases and custom quote payments use separate checkout/order flows with explicit explanation and separate shipping totals; never silently duplicate fees or pool free-shipping thresholds.',
+ 'Taxes and discounts on each order are authoritative platform values. Legal/tax configuration needs owner approval.']},
+{id:'ACCT-01',t:'Accounts and order access',sec:'7. Retail',m:'ret',g:[1,2],src:['S8'],
+ s:'Shopify Customer Account auth; guest order access through a verified short-lived link or code.',
+ r:['Sign-in, sign-out, session expiry/refresh and recovery without losing the intended destination. Approved HTTPS callback/origin settings.','Account pages show only that verified customer\'s orders and addresses; deep links reauthenticate and return safely.',
+ 'Guest access: short-lived verified email link/code, rate limits, non-enumerating responses. Order numbers are display IDs, not secrets.',
+ 'Expose order items, financial and fulfillment state, tracking, receipt access and support/return actions. Reorder rechecks variants, prices and stock.']},
+{id:'RMA-01',t:'Returns, cancellation, exchanges, refunds',sec:'7. Retail',m:'ret',g:[1,2],src:['S5','S6','S17'],
+ s:'One approved, versioned return policy enforced on every surface; approval is not a refund.',
+ r:['Item-level requests with reason, quantity, policy version and status. Policy defines window, event basis, condition rules, final-sale/personalized exclusions, defects, return-shipping responsibility and refund destination.',
+ 'States: requested → reviewing → approved/rejected → in transit → received → inspected → refund pending/refunded → closed, with explicit exception handling.',
+ 'Inventory is not restored before inspection. Refunds respect line discounts, taxes, prior refunds and shipping rules; never exceed the refundable amount.',
+ 'Cancellation requests before release under policy; never guaranteed on submission. V1 exchanges = return/refund + new purchase at current stock/price.','Staff execute and verify financial actions in Shopify. Exceptions need authorized review and an audit entry.']},
+{id:'COMMS-01',t:'Service, notifications, reviews, restock',sec:'7. Retail',m:'ret',g:[2,3],src:[],
+ s:'Durable support tickets and real transactional notices. Reviews and restock subscriptions are full-V1 items.',
+ r:['Contact forms create durable tickets: ID, acknowledgment, owner/assignee, status, reply path. Email failure must not discard a ticket.',
+ 'Transactional notices for verified order/payment, shipment, return decisions, refunds, quote issuance, proof changes and production milestones; one sender per message type.',
+ '(Full V1) Consented, variant-specific restock subscriptions with verification, unsubscribe, send dedup and fresh inventory checks; a notice is not a stock guarantee.',
+ '(Full V1) Verified-purchase reviews need an eligible fulfilled line, one active review per rule, moderation history, abuse controls and honest aggregates. No seeded reviews or invented counts.']},
+{id:'TEAM-01',t:'Team workspaces and size grids',sec:'8. Team / custom',m:'v1',g:[3],src:[],
+ s:'Merchant-approved organizations with explicit memberships and validated size/quantity grids.',
+ r:['Named adult contacts and explicit memberships. Invitations expire, can\'t be replayed and grant only the specified role. Membership is never inferred from email domain.',
+ 'Editable size/quantity matrix: nonnegative whole quantities, total units, template minimums, available size ranges; row-level errors and explicit confirmation before saving.',
+ 'Import preview from the supplied template with row-level errors. Exports match approved quantities and prevent spreadsheet-formula injection.',
+ 'Optional roster labels; no children\'s full names required, no birthdates, body photos or health info. One payer and one shipping destination per team order in V1.']},
+{id:'DESIGN-01',t:'Functional bounded 2D designer',sec:'8. Team / custom',m:'v1',g:[3],src:['S3'],
+ s:'Real synchronized front/back preview over merchant templates, saved as structured versioned data.',
+ r:['Merchant-approved front/back templates with named panels: permitted colors, fabric/trim options, allowed embellishment placements, text/logos within safe zones.',
+ 'Saved data: template version, panel choices, option IDs, placement coordinates, text, approved asset refs, pricing-rule version. Undo/redo, explicit save, reload, duplicate, revision.',
+ 'An accessible non-canvas form path reaches the same saved configuration.',
+ 'Uploads: PNG/JPEG only, ≤10 MB, MIME/signature check, dimension limits, re-encode, strip metadata, private storage. Reject executables, arbitrary SVG, invalid and decompression-bomb files. Rights attestation + staff review.',
+ 'Previews are illustrative. Estimates only from approved pricing rules, otherwise "Quote required". No browser-supplied price becomes a charged line.']},
+{id:'QUOTE-01',t:'Quote, proof, versioning, payment',sec:'8. Team / custom',m:'v1',g:[3,4],src:['S10'],
+ s:'Immutable quote revisions, recorded approvals, exactly one payable draft order per revision.',
+ r:['Submission creates a durable request: design revision, size grid, required-by date, contact, destination, notes. Staff review manufacturability, minimums, stock inputs, pricing and timing; revised proofs, comments, approve/reject — not just an email.',
+ 'Issued quote is immutable: itemized prices and quantities, setup charges, currency, shipping/tax treatment, proof, lead-time assumptions, expiry, cancellation/return policy. Approval records who approved which revision and when; any material change requires a new revision.',
+ 'Exactly one Shopify draft-order/invoice per issued revision via a durable idempotent job, using supported GraphQL APIs and proven entitlements.',
+ 'Full payment through hosted invoice checkout; no deposit ledger. Personalized stock garments stay tied to inventory-backed variants.',
+ 'Superseded/rejected/expired quotes lose their payment path (tested provider-side invalidation). Payment racing expiry → visible paid-exception hold. Never "mark paid" in place of real payment.']},
+{id:'PROD-01',t:'Production, fulfillment, reorder',sec:'8. Team / custom',m:'v1',g:[3],src:[],
+ s:'Production starts only after exact proof approval, confirmed payment and capacity checks.',
+ r:['States: awaiting approval → awaiting payment → ready to schedule → scheduled → in production → quality review → ready to ship → shipped → closed. Exception/on-hold/canceled need reasons and authorized transitions.',
+ 'Each job links commerce order, quote revision, approved proof, size grid, due-date estimate, responsible staff and event history. Customer-safe status never exposes internal cost or other teams\' data.',
+ 'Production pack: approved front/back proof, configuration IDs, quantities by size, instructions, order reference — a work instruction, not a certified cutting pattern.',
+ 'Reorder duplicates the configuration into a new draft requiring current pricing, template compatibility and capacity approval.']},
+{id:'ADMIN-01',t:'Commerce administration',sec:'9. Merchant ops',m:'ret',g:[1,2,3],src:[],
+ s:'Shopify Admin is the system of record; an embedded Custom Work app covers teams, quotes and production.',
+ r:['Shopify Admin owns catalog, variants, inventory, pricing, discounts, customers, financial orders, fulfillment, refunds. No second payment dashboard that can disagree.',
+ 'Embedded app: organizations, design review, quote/proof revisions, production queues, service cases, integration health.',
+ 'Required actions: create/edit/archive product; validate and publish; import with preview and error report; adjust stock with reason; manage collections and size charts; configure promotions; view/filter paid orders; record shipment and tracking; process authorized return/refund; approve a team; issue/revise/void quote; update production; inspect failed notifications or sync jobs.']},
+{id:'CMS-01',t:'Content and configuration',sec:'9. Merchant ops',m:'ret',g:[2],src:[],
+ s:'Merchant-editable content with separate draft/preview/publish.',
+ r:['Navigation, homepage collections/banners, size/fit help, care, FAQs, support contacts, shipping/return/privacy/terms policies, brand tokens, announcement bar.',
+ 'Legal and financial rule changes need owner permission and version history.','Scheduled promotions use an explicit timezone and show consistent state across storefront and checkout.']},
+{id:'OPS-01',t:'Operational truth',sec:'9. Merchant ops',m:'ret',g:[2],src:[],
+ s:'Actionable admin counts with documented calculations; never fabricated health.',
+ r:['Landing view: unfulfilled paid orders, low stock, pending team approvals, quotes awaiting action, production due/overdue, return cases, failed integration jobs.',
+ 'Each metric has a documented calculation and last-update timestamp. Missing connections show "Pending connection" or "Unavailable".',
+ 'Native tools count only when the exact tool, access role, verified action and evidence are identified; included in operator training and acceptance evidence.']},
+{id:'ARC-01',t:'Managed commerce, custom experience',sec:'10. Architecture',m:'x',g:[0],src:['S7'],
+ s:'Default: Hydrogen + TypeScript storefront on Oxygen, Shopify APIs, hosted checkout, embedded admin app, managed Postgres, private object storage, durable worker.',
+ r:['Storefront API for products/cart; Customer Account API for identity; Shopify-hosted checkout; Shopify Admin + custom embedded app for operations.',
+ 'Host embedded app, database, storage and worker on an approved managed service. Don\'t run long jobs or incompatible DB drivers on the storefront edge. Record host, worker runtime, backup service and email provider in the foundation phase.',
+ 'Existing-system safeguard: inventory any existing store/repo first; changing commerce backend needs a written decision, migration/reconciliation plan and the same acceptance coverage.',
+ 'Cost/entitlement gate: confirm plan eligibility, seats, headless access, API scopes, app deployment, shipping/tax, fees, email, DB/storage and monitoring costs. Do not assume native B2B features.']},
+{id:'ARC-02',t:'Authority and data boundaries',sec:'10. Architecture',m:'x',g:[0],src:[],
+ s:'Shopify owns money, stock and orders; the extension DB owns teams, designs, quotes and production.',
+ r:['See the Architecture page for the full authority table.','Extension may read/cache commerce data but never keeps a competing writeable ledger or synthesizes paid state.']},
+{id:'ARC-03',t:'Integration reliability',sec:'10. Architecture',m:'x',g:[2,4],src:['S11','S12'],
+ s:'Verified webhooks, durable inbox, idempotent processing, transactional outbox, reconciliation.',
+ r:['Verify webhook signatures on raw bodies. Durably record before acknowledging; process idempotently tracking event ID, topic, resource ID, attempts, state and error.',
+ 'Webhooks may duplicate, delay, go missing or arrive out of order: keep resource-version checks and periodic reconciliation.',
+ 'Transactional outbox for app side effects; retries never create a second invoice, refund, job or message. On ambiguous results, look up the correlation ID first.',
+ 'Exhausted retries go to a visible dead-letter queue with safe manual replay.','Reconcile orders, refunds, fulfillment, inventory projections and quote links every 15 min (configurable); record last success and alert on repeated failure. Stale projections never overwrite newer state.']},
+{id:'DATA-01',t:'Required extension entities',sec:'11. Data',m:'x',g:[0,2,3],src:[],
+ s:'Stable internal IDs, provider IDs kept separate, UTC timestamps, exact money, immutable approved revisions.',
+ r:['Rows carry created/updated timestamps and revision/optimistic-lock info. Money as exact decimals or integer minor units with currency.',
+ 'Identity: customer_refs, organizations, memberships, invitations, staff_permissions.','Customer tools: wishlists, wishlist_items, restock_subscriptions, review_eligibility/reviews, consent_events, support_tickets and messages (unique constraints prevent duplicates).',
+ 'Custom work: design_templates, template_versions, design_drafts, design_versions, private_assets, size_grids, quote_requests, quotes, quote_revisions, quote_items, approval_events, provider_order_links, production_jobs, production_events.',
+ 'Operations: return_cases, return_case_items, notification_jobs, webhook_inbox, outbox_jobs, reconciliation_runs, audit_events, policy_versions.',
+ 'Mirrors of product/order/refund are read models only. Migrations define constraints, delete behavior, uniqueness, indexes and rollback planning.']},
+{id:'API-01',t:'Required application operations',sec:'11. Data',m:'x',g:[1,2,3],src:[],
+ s:'Application contracts behind a server boundary with stable, typed errors.',
+ r:['Groups: catalog/search, cart, wishlist/account, team/design, quote, production, service, integrations (see Architecture page).',
+ 'Errors: stable code, customer-safe message, optional field errors, retryability, request ID. Distinguish unauthenticated, forbidden, missing, invalid, conflict, rate-limited, upstream-unavailable.',
+ 'Validate all payloads server-side. Privileged writes use explicit authorization, optimistic version checks and idempotency keys. Never expose DB credentials or Admin API tokens to clients.']},
+{id:'SEC-01',t:'Access and application security',sec:'12. Security',m:'x',g:[0,4],src:['S13'],
+ s:'Authenticated identities, explicit local privileges, cross-account isolation tests.',
+ r:['Secure cookies, scoped server credentials, HTTPS, CSRF/origin protection, input validation, output encoding, upload controls, rate limiting. MFA for merchant staff.',
+ 'Validate embedded-app ID tokens and enforce authorization separately; an app session is not permission to refund or change roles.',
+ 'Test cross-account and cross-team access for every resource type, including exports and signed asset URLs. Prevent open redirects and untrusted remote-image fetches.',
+ 'Restrictive headers/CSP compatible with checkout/admin. Scan dependencies and secrets in CI; redact tokens and sensitive payloads from logs. Separate test and production secrets/stores.']},
+{id:'PRIV-01',t:'Privacy and business-policy controls',sec:'12. Security',m:'x',g:[2,4],src:[],
+ s:'Adult purchasing default, ephemeral measurements, consent-gated optional tracking.',
+ r:['No child social profiles or public athlete data. Private artwork and order data never used for training or marketing.',
+ 'Publish owner-approved privacy, terms, shipping and returns documents; document retention/deletion, access/export, backup retention and financial-record exceptions.',
+ 'Marketing consent separate from transactional mail; withdrawal stops optional tracking. No addresses, names, emails, measurements, proofs or secrets in analytics.',
+ 'Legal, tax and age/privacy applicability are launch-review gates, not PRD conclusions.']},
+{id:'A11Y-01',t:'Accessibility and device coverage',sec:'12. Security',m:'x',g:[2,4],src:['S14'],
+ s:'WCAG 2.2 AA for storefront and merchant console, tested manually and automatically.',
+ r:['Keyboard, visible/unobscured focus, labels and error associations, contrast, zoom/reflow, screen-reader announcements, dialogs, non-color variant indicators.',
+ 'Size guide and designer require an accessible text/form route.','Browser matrix: iOS Safari, Android Chrome, desktop Chrome, Safari, Firefox, Edge at ~320/390/768/1280/1440px plus 200% zoom.']},
+{id:'PWA-01',t:'Installation and offline safety',sec:'12. Security',m:'x',g:[2,4],src:['S15'],
+ s:'Installable PWA that never implies live stock or payment while offline.',
+ r:['Valid manifest, icons, HTTPS, launch behavior, platform-appropriate install help; test browser and installed modes separately.',
+ 'Offline may show the shell and labeled cached public content. Never cache authenticated account/checkout/admin responses or private artwork in the service worker.',
+ 'Unacknowledged cart/design edits show "Not saved". Checkout requires an online authoritative request. Updates never strand users on an obsolete bundle or erase drafts.']},
+{id:'NFR-01',t:'Quality and recovery targets',sec:'12. Security',m:'x',g:[4],src:[],
+ s:'Measured performance, capacity, availability and recovery targets.',
+ r:['Mobile p75 LCP ≤2.5 s, INP ≤200 ms, CLS ≤0.1 once field data exists; lab budgets on a named throttled profile.',
+ 'No critical a11y violations on primary flows, no uncaught errors in certified journeys, no broken visible controls.',
+ 'Capacity: 5,000 products, 50,000 variants, 100 concurrent browsing sessions, 20-session checkout contention (within provider test limits; never load-test production checkout).',
+ '99.9% monthly customer-path availability; alert on sustained checkout/webhook failure. Extension DB RPO ≤1 h, RTO ≤4 h with a restore drill. An untested backup is not evidence.']},
+{id:'MET-01',t:'Events and definitions',sec:'13. Analytics',m:'x',g:[2],src:[],
+ s:'Consent-appropriate events and honest, reconcilable metric definitions.',
+ r:['Events: view_collection, search, filter_applied, view_product, size_guide_opened, select_variant, add_to_cart, begin_checkout, verified_purchase, return_requested, design_saved, quote_requested, quote_approved, quote_paid, production_milestone.',
+ 'Deduplicate purchase/refund events by provider IDs; failed payments and test orders are not revenue.',
+ 'Conversion = verified purchasing sessions ÷ eligible measured sessions. Net merchandise revenue = sales − discounts − merchandise refunds, excl. tax and shipping, with named period/currency.',
+ 'Report abandonment, zero-result search rate, out-of-stock attempts, size-related return reasons, quote response time, approval-to-payment conversion, production on-time rate.',
+ 'No targets or forecasts until the owner supplies baselines. Disclose attribution/consent limits; finance totals reconcile to provider records.']},
+{id:'BUILD-01',t:'Execution sequence',sec:'14. Delivery',m:'x',g:[0,1,2,3,4,5],src:[],
+ s:'Six gates from foundation to owner-approved production; see the Gates page.',r:['Build a real retail vertical slice before polishing the site. Mark "Retail certified" separately from full V1.']},
+{id:'HANDOFF-01',t:'Required repository outputs',sec:'14. Delivery',m:'x',g:[0,4,5],src:[],
+ s:'Source plus the evidence and documentation needed to operate without a developer.',
+ r:['Source, migrations, data dictionary, design tokens, content schema, env-var names (no values), API docs, webhook inventory, seed/import tools, unit/integration/E2E tests, requirement-to-test traceability, release evidence, security findings, runbook, backup/restore, deploy/rollback, owner quick-start.',
+ 'Release manifest names the exact commit and canonical environment.',
+ 'Requirements ledger statuses: Not started / In progress / Implemented / Functionally verified / Owner accepted / Blocked. "Blocked" states dependency, owner, safe available work and missing evidence.',
+ 'Never mark tests "Passed" because screenshots exist or a mock adapter returned success.']}
+];
+const SOURCES={S1:['GK Elite — Women\'s leotards collection','https://www.gkelite.com/collections/gk-gym-women-leotards'],S2:['GK Elite — Size chart','https://www.gkelite.com/pages/gk-gym-size-chart'],S3:['GK Elite — UDesign','https://www.gkelite.com/pages/udesign'],S4:['GK Elite — Shipping & delivery','https://www.gkelite.com/pages/gk-gym-shipping-delivery'],S5:['GK Elite — Orders, cancellation & returns','https://www.gkelite.com/pages/gk-gym-orders-cancellation-returns'],S6:['GK Elite — Returns portal','https://returns.gkelite.com/'],S7:['Shopify — Getting started with Hydrogen and Oxygen','https://shopify.dev/docs/storefronts/headless/hydrogen/getting-started'],S8:['Shopify — Customer Account API with Hydrogen','https://shopify.dev/docs/storefronts/headless/building-with-the-customer-account-api/hydrogen'],S9:['Shopify — Create and update a cart','https://shopify.dev/docs/storefronts/headless/building-with-the-storefront-api/cart/manage'],S10:['Shopify — GraphQL draftOrderCreate','https://shopify.dev/docs/api/admin-graphql/latest/mutations/draftOrderCreate'],S11:['Shopify — Verify webhook deliveries','https://shopify.dev/docs/apps/build/webhooks/verify-deliveries'],S12:['Shopify — About webhooks; ordering and reconciliation','https://shopify.dev/docs/apps/build/webhooks'],S13:['Shopify — Embedded-app ID tokens','https://shopify.dev/docs/apps/build/authentication-authorization/id-tokens'],S14:['W3C — WCAG 2.2','https://www.w3.org/TR/WCAG22/'],S15:['web.dev — What does it take to be installable?','https://web.dev/articles/install-criteria'],S16:['Shopify Help — Selling out of stock products','https://help.shopify.com/en/manual/products/inventory/setup/selling-when-out-of-stock'],S17:['Shopify Help — Returns and exchanges','https://help.shopify.com/en/manual/fulfillment/managing-orders/returns']};
+const GATES=[
+['Gate 0 — Foundation and decisions',['Inventory any existing code/store','Confirm working scope and authority boundaries','Create repository, environments and CI','Threat model','Requirements/test register','Provider-access plan','Draft brand tokens (neutral test identity)','Synthetic seed catalog','Approved-cost / launch-decision ledger','Verify API/plan/runtime constraints before building around them']],
+['Gate 1 — Real retail vertical slice',['Publish one valid test product with multiple variants','Browse/search and select size','Maintain cart','Complete a provider test checkout','Verify one real test order in admin','Issue fulfillment/tracking','Verify a test refund','Failed-payment test','Last-item contention test']],
+['Gate 2 — Retail breadth and merchant tools',['Collections and full filtering','Account and wishlist','Policy/CMS','Support/returns','Shipping configuration','Catalog import','Notifications','Operational queues and metrics','Certify real mobile and desktop journeys → mark "Retail certified" only']],
+['Gate 3 — Team/custom vertical slice and breadth',['Approve one team','Save/reload a 2D design','Submit sizes','Issue/revise proof and quote','Approve and pay a test invoice','Create exactly one production job','Fulfill it','Remaining custom/admin paths','Reviews and restock features']],
+['Gate 4 — Hardening and release candidate',['Execute the full acceptance register','Access isolation','Webhooks/reconciliation','Payment races','Accessibility','Mobile install','Performance budgets','Backup restore','Provider outages','Migrations and rollback','Replace all synthetic public content; confirm launch assets/policies/inventory']],
+['Gate 5 — Owner-approved production',['Record canonical storefront, checkout/account domains','Merchant app location','Deployment commit and environment config version','Migration versions','Smoke-test evidence','Monitoring contacts','Rollback steps','Owner-authorized live purchase/refund test (only after approval)']]
+];
+const DEMOS=[
+['Retail acceptance demonstration','A first-time mobile guest finds a valid size/color variant, consults the correct chart, adds to cart, checks out through the real test provider, gets one verified order and accurate shipping/return info. Staff fulfill it and process an eligible return/refund with provider and app records agreeing. Account isolation, last-item contention, failed payment and guest-access privacy tests pass.'],
+['Full-V1 acceptance demonstration','An approved team saves and reloads a design, submits quantities, receives an immutable revised proof/quote, approves the correct version, pays once and gets one linked production job. Staff complete production and fulfillment; the customer sees the right status. An expired/superseded quote cannot collect payment or start production. Reviews and restock work.'],
+['Production acceptance','All required tests pass on the exact release commit/environment; no unresolved critical/high security issues or launch-blocking defects; approved catalog/assets/policies replace seed data; operators work without a developer; integrations, alerts, backup restore and rollback have evidence; the owner has approved go-live. Waived noncritical defects list scope, impact, owner and follow-up date.']
+];
+const DECISIONS=[
+['Brand/legal merchant/domain','Neutral Gymwear test identity','Owner-approved name, identity, contact and domain'],
+['Product supply and rights','Clearly synthetic test catalog','Authorized real SKUs, images, descriptions and supplier rights'],
+['Sizes, stock and prices','Test chart/stock/prices','Approved manufacturer charts, actual stock and selling prices'],
+['Shipping and service policy','Test contiguous-US profile','Origin, supported destinations, rates, returns and promised service'],
+['Custom manufacturing','Test templates and illustrative proofs','Real producible templates/options, minimums, costs and lead times'],
+['Payments, tax and payouts','Provider test mode','Merchant verification and owner-approved configuration'],
+['Infrastructure and plan','Proposed architecture','Approved recurring costs, required entitlements and service ownership'],
+['Staff and customer service','Test roles/queues','Named operators, permissions, support inbox and escalation process'],
+['Launch authority','Staging only','Owner approval and named go-live evidence']
+];
+const SCREENS=[['Storefront','/, /collections, /collections/:handle','Published content, usable collections, real empty states'],['Discovery','/search?q=, collection filter parameters','URL-persisted filters, back-navigation restoration, correct result counts'],['Product','/products/:handle?variant=','Gallery, price, variant stock, sizing, lead time, care and policy'],['Shopping','/wishlist, /cart','Saved selections, quantity edits, authoritative totals and validation'],['Payment','Shopify cart checkout URL','Guest/account payment, address, shipping, tax and confirmation'],['Account','/account, /account/orders/:id, /account/addresses','Authenticated customer-scoped data; login/logout recovery'],['Service','/order-access, /returns, /support, /pages/:handle','Verified order access, eligible requests, durable support tickets'],['Team','/teams, /teams/:id/orders, /designs/:id','Explicit membership; versioned drafts and design state'],['Quote','/quotes/:id','Current approved revision, proof, totals, expiry, authorized payment link'],['Merchant','Shopify Admin + embedded Custom Work app','Commerce operations plus team/quote/production queues']];
+const AUTH=[['Catalog, variants, prices, inventory','Shopify','Read/cache permitted; no competing writeable ledger'],['Cart and final checkout totals','Shopify','Protected session references; UI estimates labeled'],['Payments, orders, refunds, fulfillment','Shopify','Link and project status; never synthesize paid state'],['Customer identity and order access','Shopify Customer Account','Map verified identity to local extension ownership'],['Team membership and local permissions','Extension database','Server-enforced access on every operation'],['Designs, quotes, proofs, production','Extension database','Immutable revisions linked to provider order IDs'],['Original product/CMS content','Shopify content/metaobjects','Merchant-controlled publish/version workflow'],['Private artwork and proof assets','Private object storage','Signed short-lived access; ownership checks'],['Financial reporting','Provider order/refund records','Clearly defined read-only reporting projection']];
+const APIS=[['Catalog/search','Read published catalog with cursor, facets and sort','Valid filters; bounded page size; variant-aware matching'],['Cart','Create/read/add/update/remove; checkout redirect','Protected session; valid variant; provider mutation errors'],['Wishlist/account','Read/update own list; read own orders/addresses','Verified customer; resource ownership'],['Team/design','Invite/member actions; save/revise/render design; size-grid import','Organization role; schema/version; upload validation'],['Quote','Submit request; issue revision; approve; void; obtain invoice','Staff/customer role; current revision; durable idempotency'],['Production','List assigned jobs; authorized transition; export approved pack','Payment/proof guard; transition rule; audit event'],['Service','Create/read ticket; request return/cancel; staff decision','Verified order ownership; item policy; case idempotency'],['Integrations','Receive webhooks; reconcile; replay failed job','Source verification; privileged replay; deduplication']];
+const ROLES=[['Guest shopper','Browse, filter, size guidance, device-local wishlist, session cart, guest checkout. Past guest orders need a verified email link/code — not order number + surname.'],['Registered adult customer','Guest functions plus order history, addresses, server-saved wishlist and designs, eligible requests, reviews, notification preferences. No child accounts, birthdays or saved body measurements.'],['Approved team buyer','Explicit membership in a merchant-approved workspace: drafts and quantities, share proofs, approve a quote if permitted, buy for the team. Never implies tax exemption, wholesale pricing, other orgs or merchant access.'],['Merchandiser','Catalog, collections, media, size charts, promotional content. No staff roles, payment configuration or refunds unless granted.'],['Support/fulfillment staff','Assigned support/return cases, inspect orders, fulfillment/tracking updates, production progress. Refund and quote-approval are separate permissions.'],['Owner/commerce administrator','Approves policies, products, prices, quote revisions, financial actions, staff access, integrations and go-live. Every privileged write has actor, timestamp, target and change record.']];
+const JOURNEYS=[['Retail','Collection','Combined filters','Product','Size chart','Exact variant','Cart','Hosted checkout','Verified payment/order','Fulfillment','Tracking','Eligible return/help'],['Team','Approved workspace','Template/design','Sizes and quantities','Saved revision','Quote/proof review','Customer approval','Hosted invoice checkout','Verified payment','Production','Quality check','Fulfillment'],['Operational','Publish validated product','Receive stock','Receive paid order','Pick/pack or schedule production','Ship','Support/return','Reconcile records']];
+
+/* ---------- state (per-browser convenience; export JSON to share) ---------- */
+const KEY='gymwear-prd-ledger-v1';
+let st={reqs:{},gates:{},demos:{},decisions:{}};
+try{const raw=localStorage.getItem(KEY);if(raw){const p=JSON.parse(raw);st=Object.assign(st,p)}}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(st))}catch(e){}refreshProgress()}
+const R=id=>st.reqs[id]||(st.reqs[id]={s:'ns',dep:'',owner:'',safe:'',missing:'',notes:''});
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const sName=k=>STATUSES.find(x=>x[0]===k)[1];
+const mLabel={ret:'Retail cert.',v1:'Full V1',x:'Cross-cutting'};
+
+/* ---------- pages ---------- */
+const PAGES=[['overview','Overview'],['reqs','Requirements ledger'],['users','Users & journeys'],['screens','Screens & UX'],['arch','Architecture & data'],['gates','Gates & definition of done'],['launch','Launch decisions'],['sources','Scope & sources']];
+const main=document.getElementById('main'),nav=document.getElementById('nav');
+PAGES.forEach(([k,l])=>{const b=document.createElement('button');b.type='button';b.textContent=l;b.dataset.p=k;b.onclick=()=>go(k);nav.appendChild(b);
+ const s=document.createElement('section');s.className='page';s.id='p-'+k;main.appendChild(s)});
+function go(k){document.querySelectorAll('.page').forEach(p=>p.classList.toggle('on',p.id==='p-'+k));
+ nav.querySelectorAll('button').forEach(b=>b.toggleAttribute('aria-current',b.dataset.p===k)&&b.setAttribute('aria-current','page'));
+ try{history.replaceState(null,'','#'+k)}catch(e){} if(k==='overview')renderOverview(); window.scrollTo(0,0);
+ const h=document.querySelector('#p-'+k+' h1');if(h){h.tabIndex=-1;h.focus({preventScroll:true})}}
+
+function pct(list){const n=list.length;return n?Math.round(100*list.filter(r=>DONE.has(R(r.id).s)).length/n):0}
+const retList=()=>REQS.filter(r=>r.m!=='v1'),v1List=()=>REQS;
+function refreshProgress(){const a=pct(retList()),b=pct(v1List()),bl=REQS.filter(r=>R(r.id).s==='bl').length;
+ document.getElementById('sp-ret').textContent=a+'%';document.getElementById('sb-ret').style.width=a+'%';
+ document.getElementById('sp-v1').textContent=b+'%';document.getElementById('sb-v1').style.width=b+'%';
+ document.getElementById('sp-bl').textContent=bl;}
+
+function renderOverview(){
+ const counts=STATUSES.map(([k,l])=>[k,l,REQS.filter(r=>R(r.id).s===k).length]);
+ const gTot=GATES.reduce((a,g)=>a+g[1].length,0),gDone=Object.values(st.gates).filter(Boolean).length;
+ const dDone=DECISIONS.filter((d,i)=>st.decisions[i]&&st.decisions[i].closed).length;
+ document.getElementById('p-overview').innerHTML=`
+ <h1>Gymwear Commerce App — PRD explorer</h1>
+ <p class="lede"><b>Browse. Fit. Buy. Fulfill. Design. Approve. Produce.</b> An original-brand gymnastics-apparel storefront, team-ordering workspace and merchant operation, specified from first visit through payment, production, shipment and returns. Working title only; reference: GK Elite's public retail and team-ordering experience. The PRD is a specification, not a deployed app.</p>
+ <div class="grid">
+  <div class="card c3"><div class="muted tiny">Requirement IDs</div><div class="kpi">${REQS.length}</div></div>
+  <div class="card c3"><div class="muted tiny">Retail certification</div><div class="kpi">${pct(retList())}%</div><div class="tiny muted">share of ${retList().length} IDs verified or accepted</div></div>
+  <div class="card c3"><div class="muted tiny">Full V1</div><div class="kpi">${pct(v1List())}%</div><div class="tiny muted">share of all ${REQS.length} IDs</div></div>
+  <div class="card c3"><div class="muted tiny">Gate checklist</div><div class="kpi">${gDone}/${gTot}</div><div class="tiny muted">Owner decisions closed: ${dDone}/${DECISIONS.length}</div></div>
+  <div class="card c6"><h3>Ledger status</h3>${counts.map(([k,l,n])=>`<div class="check" style="justify-content:space-between"><span class="badge" data-s="${k}">${l}</span><b>${n}</b></div>`).join('')}
+   <p class="tiny muted">"Functionally verified" and "Owner accepted" count toward completion. A requirement is never complete on code, a deployment, nice screens or mock-only tests.</p></div>
+  <div class="card c6"><h3>Definition of complete</h3>
+   <p>Every required V1 requirement and acceptance scenario passes on the named release environment. Retail certification and full-V1 certification are separate milestones; the first must not be presented as the second.</p>
+   <p>Every visible control either performs its operation or explains why it is unavailable. Simulated checkout, fabricated orders, a static admin dashboard, email-only custom-order forms and screenshot-only configurators do not satisfy the PRD.</p>
+   <div class="note"><b>Success, in users' words.</b> Shopper: "I can find the right leotard, buy the correct size with confidence, and know exactly what happens next." Team: "The design, quantities, price, approval, and production status all agree." Merchant: "One authoritative order record tells me what was paid for and what must be shipped."</div></div>
+  <div class="card"><h3>Companion files not included here</h3><p class="muted">The PRD points to an 82-scenario acceptance register (Given/When/Then, every scenario initially <b>NOT_RUN</b>), a launch-gate ledger and a build-agent prompt. Only the PRD was supplied. This page tracks the 32 requirement IDs, the gates and the owner decisions; scenario-level tracking needs the register.</p></div>
+ </div>`;}
+
+function renderReqs(){
+ const p=document.getElementById('p-reqs');
+ p.innerHTML=`<h1>Requirements ledger</h1>
+ <p class="lede">All 32 requirement IDs, condensed from PRD sections 7–14. Set each one's status using the ledger states from HANDOFF-01. A blocked item has to say what it depends on, who owns it, what work can safely continue, and what evidence is missing.</p>
+ <div class="toolbar">
+  <label class="sr" for="q" style="position:absolute;left:-9999px">Search requirements</label>
+  <input id="q" type="search" placeholder="Search IDs, titles, rules…">
+  <label for="fm" style="position:absolute;left:-9999px">Milestone</label>
+  <select id="fm"><option value="">All milestones</option><option value="ret">Retail certification</option><option value="v1">Full V1 only</option><option value="x">Cross-cutting</option></select>
+  <label for="fs" style="position:absolute;left:-9999px">Status</label>
+  <select id="fs"><option value="">All statuses</option>${STATUSES.map(([k,l])=>`<option value="${k}">${l}</option>`).join('')}</select>
+  <button class="btn" type="button" id="expand">Expand all</button>
+ </div>
+ <div class="toolbar" style="margin-top:0">
+  <button class="btn primary" type="button" id="exjson">Export ledger (JSON)</button>
+  <button class="btn" type="button" id="excsv">Export CSV</button>
+  <label class="btn" for="imp" style="display:inline-flex;align-items:center">Import JSON<input id="imp" type="file" accept="application/json" style="position:absolute;left:-9999px"></label>
+  <button class="btn" type="button" id="reset">Reset ledger</button>
+  <span class="tiny muted">The ledger is saved in this browser only. Export it to share with others or commit it.</span>
+ </div>
+ <div class="legend">${['ret','v1','x'].map(m=>`<span class="pill ${m}">${mLabel[m]}</span>`).join('')}<span class="tiny muted">Gate numbers show where the PRD sequences each item.</span></div>
+ <div id="list"></div>`;
+ const list=p.querySelector('#list');
+ REQS.forEach(r=>{const d=document.createElement('details');d.className='req';d.id='r-'+r.id;
+  const L=R(r.id);d.dataset.s=L.s;
+  d.innerHTML=`<summary><span class="id">${r.id}</span><span class="t">${esc(r.t)}</span><span class="pill ${r.m}">${mLabel[r.m]}</span><span class="pill">Gate ${r.g.join(', ')}</span><span class="badge" data-s="${L.s}">${sName(L.s)}</span></summary>
+  <div class="body"><p><b>${esc(r.s)}</b></p><ul>${r.r.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>
+  <p class="tiny muted">PRD § ${esc(r.sec)}${r.src.length?' · Sources: '+r.src.map(s=>`<a href="${SOURCES[s][1]}" target="_blank" rel="noopener noreferrer">${s}</a>`).join(', '):''}</p>
+  <div class="ledger" data-s="${L.s}">
+   <div><label for="s-${r.id}">Status</label><select id="s-${r.id}" data-f="s">${STATUSES.map(([k,l])=>`<option value="${k}"${k===L.s?' selected':''}>${l}</option>`).join('')}</select></div>
+   <div><label for="o-${r.id}">Owner</label><input id="o-${r.id}" data-f="owner" value="${esc(L.owner)}"></div>
+   <div class="blockedf"><label for="d-${r.id}">Blocking dependency</label><input id="d-${r.id}" data-f="dep" value="${esc(L.dep)}"></div>
+   <div class="blockedf"><label for="w-${r.id}">Safe available work</label><input id="w-${r.id}" data-f="safe" value="${esc(L.safe)}"></div>
+   <div class="full"><label for="m-${r.id}">Evidence (or evidence missing)</label><textarea id="m-${r.id}" data-f="missing" placeholder="Test IDs, run links, release commit…">${esc(L.missing)}</textarea></div>
+   <div class="full"><label for="n-${r.id}">Notes</label><textarea id="n-${r.id}" data-f="notes">${esc(L.notes)}</textarea></div>
+   <div class="full warn" data-warn hidden></div>
+  </div></div>`;
+  d.querySelectorAll('[data-f]').forEach(el=>el.addEventListener(el.tagName==='SELECT'?'change':'input',()=>{
+   const L=R(r.id);L[el.dataset.f]=el.value;
+   if(el.dataset.f==='s'){d.dataset.s=L.s;d.querySelector('.ledger').dataset.s=L.s;const b=d.querySelector('summary .badge');b.dataset.s=L.s;b.textContent=sName(L.s)}
+   checkWarn(d,r.id);save()}));
+  checkWarn(d,r.id);list.appendChild(d)});
+ const filt=()=>{const q=p.querySelector('#q').value.toLowerCase().trim(),m=p.querySelector('#fm').value,s=p.querySelector('#fs').value;let n=0;
+  REQS.forEach(r=>{const hay=(r.id+' '+r.t+' '+r.s+' '+r.r.join(' ')).toLowerCase();
+   const ok=(!q||hay.includes(q))&&(!m||r.m===m)&&(!s||R(r.id).s===s);document.getElementById('r-'+r.id).hidden=!ok;if(ok)n++});
+  let e=list.querySelector('.empty');if(!n&&!e){e=document.createElement('div');e.className='empty';e.textContent='No requirements match these filters.';list.appendChild(e)}else if(n&&e)e.remove()};
+ ['q','fm','fs'].forEach(i=>p.querySelector('#'+i).addEventListener('input',filt));
+ p.querySelector('#expand').onclick=e=>{const open=e.target.textContent==='Expand all';list.querySelectorAll('details').forEach(d=>d.open=open);e.target.textContent=open?'Collapse all':'Expand all'};
+ p.querySelector('#exjson').onclick=()=>dl('gymwear-requirements-ledger.json','application/json',JSON.stringify({prd:'Gymwear Commerce PRD v1.0',exported:new Date().toISOString(),...st},null,2));
+ p.querySelector('#excsv').onclick=()=>{const cell=v=>{v=String(v??'');if(/^[=+\-@\t\r]/.test(v))v="'"+v;return '"'+v.replace(/"/g,'""')+'"'};
+  const rows=[['ID','Title','Milestone','Gates','Status','Owner','Dependency','Safe work','Evidence','Notes']].concat(REQS.map(r=>{const L=R(r.id);return[r.id,r.t,mLabel[r.m],r.g.join(' '),sName(L.s),L.owner,L.dep,L.safe,L.missing,L.notes]}));
+  dl('gymwear-requirements-ledger.csv','text/csv',rows.map(x=>x.map(cell).join(',')).join('\r\n'))};
+ p.querySelector('#imp').onchange=e=>{const f=e.target.files[0];if(!f)return;f.text().then(t=>{try{const j=JSON.parse(t);
+  st={reqs:j.reqs||{},gates:j.gates||{},demos:j.demos||{},decisions:j.decisions||{}};
+  Object.values(st.reqs).forEach(L=>{if(!STATUSES.some(x=>x[0]===L.s))L.s='ns'});save();renderAll();go('reqs')}catch(err){alert('That file is not a valid ledger export.')}})};
+ p.querySelector('#reset').onclick=()=>{if(confirm('Clear every status, note, gate check and decision saved in this browser?')){st={reqs:{},gates:{},demos:{},decisions:{}};save();renderAll();go('reqs')}};
+}
+function checkWarn(d,id){const L=R(id),w=d.querySelector('[data-warn]');let msg='';
+ if(L.s==='bl'&&!(L.dep&&L.owner&&L.safe&&L.missing))msg='A blocked item has to name its dependency, owner, safe available work and missing evidence (HANDOFF-01).';
+ else if(DONE.has(L.s)&&!L.missing)msg='Record the evidence: test IDs or run links on the release environment. Screenshots or mock adapter success do not count.';
+ w.textContent=msg;w.hidden=!msg}
+function dl(name,type,data){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([data],{type}));a.download=name;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500)}
+
+function table(head,rows){return `<div class="tablewrap"><table><thead><tr>${head.map(h=>`<th scope="col">${h}</th>`).join('')}</tr></thead><tbody>${rows.map(r=>`<tr>${r.map((c,i)=>i?`<td>${esc(c)}</td>`:`<td><b>${esc(c)}</b></td>`).join('')}</tr>`).join('')}</tbody></table></div>`}
+
+function renderStatic(){
+ document.getElementById('p-users').innerHTML=`<h1>Users, permissions and journeys</h1><p class="lede">PRD § 4. Every privileged write records actor, timestamp, target and change.</p>
+ <div class="grid">${ROLES.map(([t,d])=>`<div class="card c6"><h3>${t}</h3><p class="muted">${esc(d)}</p></div>`).join('')}</div>
+ <h2>Primary journeys</h2>${JOURNEYS.map(([n,...s])=>`<div class="card" style="margin:10px 0"><h3>${n} journey</h3><div class="flow">${s.map((x,i)=>`${i?'<b aria-hidden="true">→</b>':''}<span>${esc(x)}</span>`).join('')}</div></div>`).join('')}`;
+ document.getElementById('p-screens').innerHTML=`<h1>Screens and interaction contract</h1><p class="lede">PRD § 5–6. Shopify-hosted checkout and merchant admin are intended system boundaries, not broken navigation or unfinished screens.</p>
+ ${table(['Surface','Routes / destination','Mandatory behavior'],SCREENS)}
+ <h2>Universal interaction contract</h2><div class="card"><ul>
+ <li>Each route defines loading, ready, empty, error, permission-denied and unavailable-service states where applicable.</li>
+ <li>Each form defines validation, a submission lock, durable proof of success and a retry path. Dialogs manage keyboard focus and have a visible close control.</li>
+ <li>Every navigation element has a working destination. No production link may resolve to localhost, the owner's own computer, or a retired preview.</li></ul></div>
+ <h2>Visual and interaction requirements</h2><div class="grid">
+ <div class="card c6"><h3>Direction</h3><p class="muted">Premium athletic retail: product-first imagery, clean light surfaces, strong readable type, restrained accents, clear hierarchy. Original direction, not a GK copy. Use a neutral test identity with configurable color, type and logo tokens until the owner supplies a brand kit.</p></div>
+ <div class="card c6"><h3>Layout</h3><p class="muted">Two product cards per row at ~390px when readable (one if accessibility settings require); 3–4 columns on wider screens. Filters go in a mobile sheet and a desktop sidebar or toolbar. Restore scroll position and filters after visiting a product.</p></div>
+ <div class="card c6"><h3>Product detail</h3><p class="muted">On desktop the gallery sits beside the purchase controls; on mobile it stacks. A sticky purchase bar is allowed only if it hides nothing important. Size help sits next to size selection. Labels state availability plainly: "Ready to ship", "Custom quote required", "Out of stock".</p></div>
+ <div class="card c6"><h3>Interaction</h3><p class="muted">44×44px touch targets, visible focus, non-color state indicators, real alt text, reduced motion, no autoplay audio. No carousel-only navigation, hover-only information, forced install prompts, fake scarcity or countdowns that no real schedule backs.</p></div>
+ <div class="card"><h3>Design delivery</h3><p class="muted">Before any screen is built, define tokens, type scale, spacing, breakpoints, inputs, buttons, cards, menus, drawers, alerts, tables and status badges. Deliver mobile and desktop designs for the storefront, product page, cart, account order detail, designer, quote detail and merchant queue. Visual approval does not replace functional testing.</p></div></div>`;
+ document.getElementById('p-arch').innerHTML=`<h1>Architecture and data</h1><p class="lede">PRD § 10–11. This is the recommended default; it is not a claim that GK uses the same stack. It also assumes paid plans: confirm costs and entitlements before committing to it.</p>
+ <div class="card"><h3>Default reference implementation</h3><div class="flow"><span>Hydrogen + TypeScript on Oxygen</span><span>Storefront API</span><span>Customer Account API</span><span>Shopify-hosted checkout</span><span>Shopify Admin</span><span>Embedded Custom Work app</span><span>Managed PostgreSQL</span><span>Private object storage</span><span>Durable background worker</span></div></div>
+ <h2>Authority and data boundaries (ARC-02)</h2>${table(['Domain','Authoritative system','Extension behavior'],AUTH)}
+ <h2>Application operations (API-01)</h2>${table(['Operation group','Required contract','Essential checks'],APIS)}
+ <h2>Integration reliability (ARC-03)</h2><div class="card"><div class="flow"><span>Verify signature on raw body</span><b>→</b><span>Durably record in webhook_inbox</span><b>→</b><span>Acknowledge</span><b>→</b><span>Process idempotently (version check)</span><b>→</b><span>Retry with backoff</span><b>→</b><span>Dead-letter + safe replay</span></div>
+ <p class="muted">App-originated side effects go through a transactional outbox, so a retry never creates a second invoice, refund, production job or message. Reconciliation runs every 15 minutes (configurable); a stale projection never overwrites newer commerce state.</p></div>`;
+ document.getElementById('p-sources').innerHTML=`<h1>Scope, exclusions and sources</h1>
+ <div class="grid"><div class="card c6"><h3>Build defaults (not owner facts)</h3><p class="muted">One merchant. Direct-to-consumer sales plus approved adult team buyers. English, responsive web, USD. Contiguous-US shipping profile. Stocked leotards plus quoted customization. One fulfillment location. Installable PWA, not app-store binaries.</p></div>
+ <div class="card c6"><h3>Explicitly outside V1</h3><p class="muted">3D garment simulation, AR fitting, AI fit guarantees, native app-store apps, subscriptions, gift cards, loyalty, marketplace sellers, international tax/duties, tax-exempt wholesale accounts, net terms, deposits/installments, athlete profiles, public customer photos, split family payments, unrestricted artwork-to-manufacturing automation.</p></div>
+ <div class="card"><h3>No surprise purchasing</h3><p class="muted">The PRD does not authorize opening paid accounts, buying domains, upgrading plans, buying shipping labels or charging cards. Development uses approved test services. Live payment activation and any live transaction need explicit owner authorization.</p></div>
+ <div class="card"><h3>Content boundary</h3><p class="muted">Use only original or properly authorized branding, photography, copy, logos, fonts, team marks and product data. Do not import GK reviews, endorsements, licensed collections, inventory, pricing, photos or artwork. Do not imply a GK partnership or scrape the reference site for inventory.</p></div></div>
+ <h2>Source register (consulted 6 Oct 2026)</h2><ol class="src">${Object.entries(SOURCES).map(([k,[t,u]])=>`<li>[${k}] ${esc(t)}: <a href="${u}" target="_blank" rel="noopener noreferrer">${u}</a></li>`).join('')}</ol>`;
+}
+
+function renderGates(){
+ const p=document.getElementById('p-gates');
+ p.innerHTML=`<h1>Gates and definition of done</h1><p class="lede">BUILD-01 execution sequence. Gate checkboxes are progress notes only. They do not stand in for acceptance-register evidence.</p>
+ ${GATES.map(([t,items],gi)=>{const done=items.filter((_,i)=>st.gates[gi+'.'+i]).length;
+  return `<div class="card gate"><h3><span>${t}</span><span class="muted tiny">${done}/${items.length}</span></h3>
+  <div class="tiny muted">Requirements sequenced here: ${REQS.filter(r=>r.g.includes(gi)).map(r=>`<a href="#reqs" data-jump="${r.id}">${r.id}</a>`).join(', ')}</div>
+  ${items.map((x,i)=>`<label class="check"><input type="checkbox" data-g="${gi}.${i}"${st.gates[gi+'.'+i]?' checked':''}><span>${esc(x)}</span></label>`).join('')}</div>`}).join('')}
+ <h2>Release acceptance (§ 16)</h2>
+ ${DEMOS.map(([t,d],i)=>`<div class="card gate"><label class="check"><input type="checkbox" data-d="${i}"${st.demos[i]?' checked':''}><span><b>${t}</b><br><span class="muted">${esc(d)}</span></span></label></div>`).join('')}
+ <div class="note"><b>Final rule:</b> No release is "complete" while an included customer or operator path ends at a decorative button, a fake success message, an unconnected integration, or an undocumented manual workaround.</div>`;
+ p.querySelectorAll('[data-g]').forEach(c=>c.onchange=()=>{st.gates[c.dataset.g]=c.checked;save();
+  const card=c.closest('.gate'),boxes=card.querySelectorAll('[data-g]');card.querySelector('h3 .muted').textContent=[...boxes].filter(b=>b.checked).length+'/'+boxes.length});
+ p.querySelectorAll('[data-d]').forEach(c=>c.onchange=()=>{st.demos[c.dataset.d]=c.checked;save()});
+ p.querySelectorAll('[data-jump]').forEach(a=>a.onclick=e=>{e.preventDefault();go('reqs');const d=document.getElementById('r-'+a.dataset.jump);d.hidden=false;d.open=true;d.scrollIntoView({block:'start'})});
+}
+
+function renderLaunch(){
+ const p=document.getElementById('p-launch');
+ p.innerHTML=`<h1>Launch decisions and blockers</h1><p class="lede">PRD § 15. These owner inputs were not supplied. Work proceeds on reversible test defaults, but none of these facts may be invented, and the storefront may not be presented as ready to transact until each gate closes. Silence never counts as approval.</p>
+ <div class="tablewrap"><table><thead><tr><th scope="col">Decision</th><th scope="col">Development default</th><th scope="col">Production gate</th><th scope="col">Owner decision / evidence</th><th scope="col">Closed</th></tr></thead><tbody>
+ ${DECISIONS.map(([a,b,c],i)=>{const D=st.decisions[i]||{};return `<tr><td><b>${esc(a)}</b></td><td>${esc(b)}</td><td>${esc(c)}</td>
+ <td><label for="dn-${i}" style="position:absolute;left:-9999px">Evidence for ${esc(a)}</label><textarea id="dn-${i}" data-dn="${i}" rows="2" style="width:100%;min-width:180px;border:1px solid var(--line);background:var(--panel);border-radius:6px;padding:6px">${esc(D.note)}</textarea></td>
+ <td><input type="checkbox" aria-label="${esc(a)} closed" data-dc="${i}"${D.closed?' checked':''} style="width:20px;height:20px"></td></tr>`}).join('')}
+ </tbody></table></div>
+ <div class="note" style="margin-top:14px">Missing branding does not block API work. Missing live keys do not justify fake payment code. Missing manufacturing data does not justify promising production-ready customization. Label test content clearly and keep the blocked ledger up to date.</div>`;
+ const D=i=>st.decisions[i]||(st.decisions[i]={note:'',closed:false});
+ p.querySelectorAll('[data-dn]').forEach(t=>t.oninput=()=>{D(t.dataset.dn).note=t.value;save()});
+ p.querySelectorAll('[data-dc]').forEach(c=>c.onchange=()=>{const d=D(c.dataset.dc);if(c.checked&&!d.note.trim()){alert('Record the owner decision or evidence before closing this gate.');c.checked=false;return}d.closed=c.checked;save()});
+}
+
+function renderAll(){renderReqs();renderStatic();renderGates();renderLaunch();renderOverview();refreshProgress()}
+renderAll();
+const start=(location.hash||'#overview').slice(1);go(PAGES.some(x=>x[0]===start)?start:'overview');
+
+/* theme */
+document.getElementById('theme').onclick=()=>{const r=document.documentElement,cur=r.dataset.theme||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
+ r.dataset.theme=cur==='dark'?'light':'dark';try{localStorage.setItem(KEY+'-theme',r.dataset.theme)}catch(e){}};
+try{const t=localStorage.getItem(KEY+'-theme');if(t)document.documentElement.dataset.theme=t}catch(e){}
+</script>
+</body>
+</html>
