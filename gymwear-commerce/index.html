@@ -8,9 +8,9 @@
 :root{--bg:#f4f7fa;--panel:#ffffff;--panel2:#eef3f8;--text:#14243a;--muted:#5b6b80;--line:#d8e1ea;--accent:#1f5f8b;--accent-ink:#ffffff;--navy:#16304f;
 --s-ns:#8a97a8;--s-ip:#c58a12;--s-im:#2f6fb5;--s-fv:#1f8a5b;--s-oa:#0f6b45;--s-bl:#c0392b}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0b1119;--panel:#121a25;--panel2:#18222f;--text:#e8eef5;--muted:#9aa9ba;--line:#273444;--accent:#5fa8dc;--accent-ink:#06121d;--navy:#0e1824;
---s-ns:#7d8a9b;--s-ip:#e0a63a;--s-im:#5c9be0;--s-fv:#3cc489;--s-oa:#2fae76;--s-bl:#e5604f}}
+--s-ns:#7d8a9b;--s-ip:#e0a63a;--s-im:#5c9be0;--s-fv:#3cc489;--s-oa:#2fae76;--s-bl:#e5604f;color-scheme:dark}}
 :root[data-theme="dark"]{--bg:#0b1119;--panel:#121a25;--panel2:#18222f;--text:#e8eef5;--muted:#9aa9ba;--line:#273444;--accent:#5fa8dc;--accent-ink:#06121d;--navy:#0e1824;
---s-ns:#7d8a9b;--s-ip:#e0a63a;--s-im:#5c9be0;--s-fv:#3cc489;--s-oa:#2fae76;--s-bl:#e5604f}
+--s-ns:#7d8a9b;--s-ip:#e0a63a;--s-im:#5c9be0;--s-fv:#3cc489;--s-oa:#2fae76;--s-bl:#e5604f;color-scheme:dark}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--text);font:15px/1.55 Inter,system-ui,-apple-system,"Segoe UI",sans-serif}
 button,input,select,textarea{font:inherit;color:inherit}
@@ -390,6 +390,10 @@ function renderReqs(){
   <button class="btn" type="button" id="reset">Reset ledger</button>
   <span class="tiny muted">The ledger is saved in this browser only. Export it to share with others or commit it.</span>
  </div>
+ <div id="exbox" class="card" hidden><div class="toolbar" style="margin:0 0 8px"><b id="exname"></b><button class="btn primary" type="button" id="excopy">Copy</button><button class="btn" type="button" id="exclose">Close</button><span id="exmsg" class="tiny muted" role="status"></span></div>
+  <label for="exout" class="tiny muted">Copy this text and save it as a file. Paste a JSON export into Import to restore it.</label>
+  <textarea id="exout" rows="8" style="width:100%;margin-top:6px;border:1px solid var(--line);background:var(--panel2);border-radius:6px;padding:8px;font:12.5px/1.5 ui-monospace,Menlo,monospace"></textarea></div>
+ <p id="lmsg" class="warn" role="status" hidden></p>
  <div class="legend">${['ret','v1','x'].map(m=>`<span class="pill ${m}">${mLabel[m]}</span>`).join('')}<span class="tiny muted">Gate numbers show where the PRD sequences each item.</span></div>
  <div id="list"></div>`;
  const list=p.querySelector('#list');
@@ -418,14 +422,21 @@ function renderReqs(){
   let e=list.querySelector('.empty');if(!n&&!e){e=document.createElement('div');e.className='empty';e.textContent='No requirements match these filters.';list.appendChild(e)}else if(n&&e)e.remove()};
  ['q','fm','fs'].forEach(i=>p.querySelector('#'+i).addEventListener('input',filt));
  p.querySelector('#expand').onclick=e=>{const open=e.target.textContent==='Expand all';list.querySelectorAll('details').forEach(d=>d.open=open);e.target.textContent=open?'Collapse all':'Expand all'};
- p.querySelector('#exjson').onclick=()=>dl('gymwear-requirements-ledger.json','application/json',JSON.stringify({prd:'Gymwear Commerce PRD v1.0',exported:new Date().toISOString(),...st},null,2));
+ const exbox=p.querySelector('#exbox'),exout=p.querySelector('#exout');
+ const show=(name,type,data)=>{exbox.hidden=false;p.querySelector('#exname').textContent=name;exout.value=data;p.querySelector('#exmsg').textContent='';dl(name,type,data)};
+ p.querySelector('#excopy').onclick=()=>{const m=p.querySelector('#exmsg');const fb=()=>{exout.select();m.textContent='Selected. Press Ctrl+C or Cmd+C to copy.'};
+  try{navigator.clipboard.writeText(exout.value).then(()=>m.textContent='Copied.',fb)}catch(e){fb()}};
+ p.querySelector('#exclose').onclick=()=>exbox.hidden=true;
+ const lmsg=t=>{const m=p.querySelector('#lmsg');m.textContent=t;m.hidden=!t};
+ p.querySelector('#exjson').onclick=()=>show('gymwear-requirements-ledger.json','application/json',JSON.stringify({prd:'Gymwear Commerce PRD v1.0',exported:new Date().toISOString(),...st},null,2));
  p.querySelector('#excsv').onclick=()=>{const cell=v=>{v=String(v??'');if(/^[=+\-@\t\r]/.test(v))v="'"+v;return '"'+v.replace(/"/g,'""')+'"'};
   const rows=[['ID','Title','Milestone','Gates','Status','Owner','Dependency','Safe work','Evidence','Notes']].concat(REQS.map(r=>{const L=R(r.id);return[r.id,r.t,mLabel[r.m],r.g.join(' '),sName(L.s),L.owner,L.dep,L.safe,L.missing,L.notes]}));
-  dl('gymwear-requirements-ledger.csv','text/csv',rows.map(x=>x.map(cell).join(',')).join('\r\n'))};
+  show('gymwear-requirements-ledger.csv','text/csv',rows.map(x=>x.map(cell).join(',')).join('\r\n'))};
  p.querySelector('#imp').onchange=e=>{const f=e.target.files[0];if(!f)return;f.text().then(t=>{try{const j=JSON.parse(t);
   st={reqs:j.reqs||{},gates:j.gates||{},demos:j.demos||{},decisions:j.decisions||{}};
-  Object.values(st.reqs).forEach(L=>{if(!STATUSES.some(x=>x[0]===L.s))L.s='ns'});save();renderAll();go('reqs')}catch(err){alert('That file is not a valid ledger export.')}})};
- p.querySelector('#reset').onclick=()=>{if(confirm('Clear every status, note, gate check and decision saved in this browser?')){st={reqs:{},gates:{},demos:{},decisions:{}};save();renderAll();go('reqs')}};
+  Object.values(st.reqs).forEach(L=>{if(!STATUSES.some(x=>x[0]===L.s))L.s='ns'});save();renderAll();go('reqs')}catch(err){lmsg('That file is not a valid ledger export. Choose a JSON file made with Export ledger.')}})};
+ const rb=p.querySelector('#reset');let armed=0;rb.onclick=()=>{if(!armed){armed=1;rb.textContent='Click again to clear everything';lmsg('This clears every status, note, gate check and decision saved in this browser.');setTimeout(()=>{if(armed){armed=0;rb.textContent='Reset ledger';lmsg('')}},6000);return}
+  st={reqs:{},gates:{},demos:{},decisions:{}};save();renderAll();go('reqs')};
 }
 function checkWarn(d,id){const L=R(id),w=d.querySelector('[data-warn]');let msg='';
  if(L.s==='bl'&&!(L.dep&&L.owner&&L.safe&&L.missing))msg='A blocked item has to name its dependency, owner, safe available work and missing evidence (HANDOFF-01).';
@@ -489,10 +500,11 @@ function renderLaunch(){
  <td><label for="dn-${i}" style="position:absolute;left:-9999px">Evidence for ${esc(a)}</label><textarea id="dn-${i}" data-dn="${i}" rows="2" style="width:100%;min-width:180px;border:1px solid var(--line);background:var(--panel);border-radius:6px;padding:6px">${esc(D.note)}</textarea></td>
  <td><input type="checkbox" aria-label="${esc(a)} closed" data-dc="${i}"${D.closed?' checked':''} style="width:20px;height:20px"></td></tr>`}).join('')}
  </tbody></table></div>
+ <p id="dmsg" class="warn" role="status" hidden></p>
  <div class="note" style="margin-top:14px">Missing branding does not block API work. Missing live keys do not justify fake payment code. Missing manufacturing data does not justify promising production-ready customization. Label test content clearly and keep the blocked ledger up to date.</div>`;
  const D=i=>st.decisions[i]||(st.decisions[i]={note:'',closed:false});
  p.querySelectorAll('[data-dn]').forEach(t=>t.oninput=()=>{D(t.dataset.dn).note=t.value;save()});
- p.querySelectorAll('[data-dc]').forEach(c=>c.onchange=()=>{const d=D(c.dataset.dc);if(c.checked&&!d.note.trim()){alert('Record the owner decision or evidence before closing this gate.');c.checked=false;return}d.closed=c.checked;save()});
+ p.querySelectorAll('[data-dc]').forEach(c=>c.onchange=()=>{const d=D(c.dataset.dc);const m=p.querySelector('#dmsg');if(c.checked&&!d.note.trim()){m.textContent='Write the owner decision or evidence for "'+DECISIONS[c.dataset.dc][0]+'" before closing it.';m.hidden=false;c.checked=false;return}m.hidden=true;d.closed=c.checked;save()});
 }
 
 function renderAll(){renderReqs();renderStatic();renderGates();renderLaunch();renderOverview();refreshProgress()}
